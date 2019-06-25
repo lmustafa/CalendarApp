@@ -1,0 +1,99 @@
+html {
+    width: 60%;
+    height: 100%;
+    min-height: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+		background-color: rgb(255,255,224);
+}
+body {
+    height: 100%;
+    min-height: 100%;
+    line-height: 1.75;
+    background-color: rgb(255,255,224);
+}
+a:link:hover {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    text-decoration: underline;
+    cursor: pointer;
+    cursor: hand;
+}
+input[type=submit], button {
+    cursor: pointer;
+    cursor: hand;
+}
+@media(max-width: 900px) {
+    html {
+        font-size: 14px !important;
+        width: 80% !important;
+    }
+}
+@media(max-width: 480px) {
+    html {
+        font-size: 12px !important;
+        width: 90% !important;
+    }
+}
+@media(max-width: 320px) {
+    html {
+        font-size: 12px !important;
+        width: 100% !important;
+    }
+}
+table {
+  border-collapse: collapse;
+	/* text-align: center; */
+}
+th,
+td {
+  border: 1px solid #cecfd5;
+  padding: 10px 15px;
+}
+
+/*for scrolling*/
+.my-custom-scrollbar {
+  position: relative;
+  height: 250px;
+  overflow: auto;
+}
+
+h1 { color: #333333;
+	   font-family: 'Bitter', serif;
+		 font-size: 50px; font-weight: normal;
+		 line-height: 54px; margin: 10 0 54px;
+	   text-align: center;}
+
+h2 { color: #111111;
+		 font-family: 'Bitter', serif;
+		 font-size: 30px; font-weight: normal;
+		 line-height: 54px; margin: 10 0 54px;
+		 text-align: center;}
+
+.btn-primary {
+		  color: #fff;
+		  background-color: #428bca;
+		  border-color: #357ebd;
+		 }
+.sharp {
+		   border-radius:0;
+		 }
+
+.forevent {
+	width: 20%;
+	padding: 8px 8px;
+	box-sizing: border-box;
+	border: 1px solid blue;
+	border-radius: 4px;
+}
+
+.format {
+	width: 100%;
+}
+
+/* .modal-content  {
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+} */

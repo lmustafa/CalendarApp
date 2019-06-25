@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CHANGE ME</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CHANGE ME">
+    <meta name="keywords" content="CHANGE ME">
+    <meta name="author" content="CHANGE ME">
+    <!-- Load jquery, bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <!-- Custom CSS End -->
+</head>
+<body>
+	  <br>
+    <h1>Calendar Viewer</h1>
+    <br>
+		<!-- Status Panel -->
+		<hr>
+		<section>
+
+			<div>
+				<h2>Status Panel</h2>
+			</div>
+			<div>
+				 <button id = "clearStatus" class="btn btn-primary btn-lg gradient">Clear</button>
+			</div>
+			<div>
+				<br>
+				<textarea class="format" readonly rows="4" cols="105" id="statusPanel">Display messages here.</textarea>
+			</div>
+		</section>
+		<hr>
+		<!-- Status Panel -->
+
+  <hr>
+	<section>
+		<h2>File Log Panel</h2>
+		<div class="my-custom-scrollbar">
+			<table class="table table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">File Name</th>
+						<th scope="col">Version</th>
+						<th scope="col">Product ID</th>
+						<th scope="col">Number of Events</th>
+						<th scope="col">Number of Properties</th>
+					</tr>
+				</thead>
+				<tbody id = "tempFile">
+  				<tr>
+		  		</tr>
+				</tbody>
+		</table>
+	</div>
+
+	<!-- <div>
+		<br>
+		<form action = "/upload" method = "post">
+			<input type="file" value="Upload file" id="fileChosen">
+		</form>
+	</div> -->
+<br>
+	<form id="uploadFile" method="POST" enctype="multipart/form-data" action="/upload">
+		<input class="btn btn-primary btn-lg gradient" type="file" accept=".ics" name="uploadFile" required></input>
+		<input class="btn btn-primary btn-lg gradient" type="submit" name="submit" value="Submit"></input>
+	</form>
+
+<br>
+
+<div>
+	<span class="navbar-text">
+		<a data-toggle="modal" data-target="#myModal">
+			<button class="btn btn-primary btn-lg gradient">Create Calendar</button>
+		</a>
+	</span>
+</div>
+
+	<div id="myModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+		<div class="modal-content">
+				<div class="modal-body">
+					 <p class="text-center">Add File</p>
+				<form action = "">
+							<div class="form-group col-sm-5" class="rounded">
+							<input class="form-control" type="text" id="fileName" placeholder="File Name">
+							<input class="form-control" type="text" id="version" placeholder="Version">
+							<input class="form-control" type="text" id="prodID" placeholder="Prod ID">
+						  <input class="form-control" type="text" id="evUID" placeholder="Event UID">
+						</div>
+				</form>
+				<div class="modal-footer">
+					  <button class="btn btn-secondary" type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Cancel</button>
+						<button class="btn btn-primary" id = "add-row" data-dismiss="modal">Add File</button>
+			  </div>
+	 </div>
+	</div>
+ </div>
+</div>
+</section>
+<hr>
+
+<br>
+<nav class="navbar navbar-light">
+	<div class="container mr-auto">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Navbar" id="fileNames">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<!-- <form id = "uploadform" enctype="mulipart/form-data" method = "post" action = "/upload">
+			<input type="submit" value="Upload">
+			<input name = "uploadFile" type = "file">
+		</form> -->
+		<a class="navbar-brand mr-auto">Choose File</a>
+	  <div class="collapse navbar-collapse mr-auto" id="Navbar">
+			<ul class="navbar-nav" id="addFiles" id="addTemp">
+			</ul>
+		</div>
+	</div>
+</nav>
+<br>
+
+<!-- <form id ="uploadform" enctype="mulipart/form-data" method ="post" action ="/upload">
+	<input type="submit" value="Upload">
+	<input type="submit" value="Send" value="Upload">
+	 <input name ="uploadFile" type ="file">
+ </form> -->
+
+<section>
+	<h2>Calendar View Panel</h2>
+		<div class="my-custom-scrollbar">
+			<table align="center" class="table table-striped">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Event Number</th>
+						<th scope="col">Start date</th>
+						<th scope="col">Start time</th>
+						<th scope="col">Summary</th>
+						<th scope="col">Props</th>
+						<th scope="col">Alarms</th>
+					</tr>
+				</thead>
+				<tbody id = "tempCal">
+  				<tr>
+		  		</tr>
+				</tbody>
+		</table>
+	</div>
+
+
+	 <div>
+		 <br>
+		 <button id="showProps" type="button" class="btn btn-primary btn-lg gradient">Show Properties</button>
+		 <button id="showAlarms" type="button" class="btn btn-primary btn-lg gradient">Show Alarms</button>
+		  <!-- <button id="showProps"> Show Properties </button>
+			<button id="showAlarms"> Show Alarms </button> -->
+	    <input class="forevent" type="text"  id="eventNumForAlarm" placeholder="Enter Event #">
+	 </div>
+
+
+<br>
+	<!-- <div>
+		<button id = "add-row-cal">Add Event</button>
+	</div> -->
+
+</section>
+	<hr>
+
+	<div>
+		<span class="navbar-text">
+			<a data-toggle="modal" data-target="#loginModal">
+				<button class="btn btn-primary btn-lg gradient">Add Event</button>
+				<!-- <span class="fa fa-sign-in">Add Event</span>	 -->
+				 <!--  what does fa fa do? -->
+			</a>
+		</span>
+	</div>
+
+	<br>
+	<br>
+
+<div id="loginModal" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg" role="content">
+		<div class="modal-content">
+			<div class="modal-body">
+				<p class="text-center" >Add Event</p>
+			<form action = "">
+						<div class="text-center" class="form-group col-sm-5" class="rounded">
+						<!--<input type="text" id="summary" placeholder="Summary"> -->
+            <input type="text" class="form-control" id="UID" placeholder="UID">
+						<input type="text" class="form-control" id="summary" placeholder="Summary">
+
+						 <!-- <input type="text" id="evStartDate" placeholder="YYYYMMDD"> -->
+						 <!-- <label>Event Start Time</label> -->
+						 <input type="text" class="form-control" id="evStartTime" placeholder="Event Start Time -- hhmmss">
+						 <label>Event Start Date</label>
+						 <div> </div>
+						 <div> </div>
+						 <input type="date" name="Event Start Date" id="evStartDate">
+						 <input type="checkbox" name="utc1" value="UTC" id="utcSelected"> Is Time UTC?<br>
+
+					</div>
+			</form>
+			<div class="modal-footer">
+				  <button class="btn btn-secondary" type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Close</button>
+					<button class="btn btn-primary" id="createEvent" data-dismiss="modal">Add</button>
+			</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div>
+		<p align="center">
+		<span class="navbar-text">
+			<a data-toggle="modal" data-target="#dbLoginModal">
+				<p align="center">
+				<button class="btn btn-secondary btn-lg gradient">Login</button>
+			  </p>
+				<!-- <span class="fa fa-sign-in">Add Event</span>	 -->
+				 <!--  what does fa fa do? -->
+			</a>
+		</span>
+	</div>
+
+	<section>
+	<div id="dbLoginModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p align="center">LOGIN TO DATABASE</p>
+					<form action = "">
+						<p align="center">
+							<!-- MAKE SIZE SMALLER -->
+						<input type="text" class="form-control" id="username" placeholder="Name" required>
+						<input type="password" class="form-control" id="password" placeholder="Password" required>
+						<!-- <input type="text" class="form-control" id="password" placeholder="Database Name" required> -->
+						<!-- <button class="btn btn-primary" id="createEvent" data-dismiss="modal">Add</button> -->
+					</p>
+					</form>
+					<div class="modal-footer">
+							<button class="btn btn-secondary" type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Close</button>
+							<button class="btn btn-primary" data-dismiss="modal" id="database">Add</button>
+					</div>
+					<!-- <button class="btn btn-secondary btn-lg gradient" id="StoreAllFiles">Store All Files</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+		<div>
+			<br>
+			<p align="center">
+			<button class="btn btn-secondary btn-lg gradient" id="StoreAllFiles">Store All Files</button>
+			<button class="btn btn-secondary btn-lg gradient" id="ClearData">Clear Data</button>
+			<button class="btn btn-secondary btn-lg gradient" id="DisplayDB">Display DB Status</button>
+			<!-- <button class="btn btn-secondary btn-lg gradient" id="executeQ">Execute Query</button> -->
+
+	<!-- <br>
+	<br> -->
+	<!-- <p></p><p></p><p></p><p></p> -->
+
+	<!-- <div>
+		<button class="btn btn-primary" id="showTable">Show Tables</button>
+	</div> -->
+
+	<!-- <div> -->
+		<span class="navbar-text">
+			<a data-toggle="modal" data-target="#executeQuery">
+				<button class="btn btn-secondary btn-lg gradient">Execute Query</button>
+				<!-- <span class="fa fa-sign-in">Add Event</span>	 -->
+				 <!--  what does fa fa do? -->
+			</a>
+		</span>
+	<!-- </div> -->
+
+</p>
+</div>
+</section>
+
+<br>
+<br>
+<p></p><p></p><p></p><p></p>
+
+	<div id="executeQuery" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-lg" role="content">
+			<div class="modal-content">
+				<div class="modal-body">
+					<p align="center">EXECUTE A QUERY</p>
+					<form action = "">
+						<div class="dropdown">
+  					<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    				Select Query
+  					</button>
+  					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    					<a class="dropdown-item" id="q1" href="#">Display all events sorted by start date</a>
+    					<a class="dropdown-item" id="q2" href="#">Display the start dates and summaries of all events from a specific file</a>
+    					<a class="dropdown-item" id="q3" href="#">Display all events that conflict with one another whose summaries and organizers are not null</a>
+							<a class="dropdown-item" id="q4" href="#">Display the corresponding events of all alarms</a>
+							<a class="dropdown-item" id="q5" href="#">Display the maximum version from the file</a>
+							<a class="dropdown-item" id="q6" href="#">Display all files with the same version number</a>
+  					</div>
+					</div>
+						<!-- <p align="center"> -->
+							<!-- MAKE SIZE SMALLER -->
+						<!-- <input type="text" class="form-control" id="username" placeholder="Name" required>
+						<input type="password" class="form-control" id="password" placeholder="Password" required> -->
+						<!-- <input type="text" class="form-control" id="password" placeholder="Database Name" required> -->
+						<!-- <button class="btn btn-primary" id="createEvent" data-dismiss="modal">Add</button> -->
+					<!-- </p> -->
+
+					</form>
+
+					<p id="message"></p>
+
+
+					<div>
+						<br>
+						<textarea class="format"rows="4" cols="105" id="printQuery"></textarea>
+					</div>
+
+					<!-- <div>
+						<br>
+						<p align="center">
+						<button id="verifyQueryText">Execute Query</button>
+						</p>
+					</div> -->
+				<div>
+					<!-- <p align="center"> -->
+					<p align="center" id="queryMessage"></p>
+					<form>
+						<p align="center">
+    				<input type="button" id="btnSubmit" value="Execute Query"></input>
+						</p>
+					</form>
+					<!-- </p> -->
+				</div>
+
+					<div class="my-custom-scrollbar">
+						<table>
+							<tbody id = "tempDataBase">
+								<tr>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<!-- <div>
+						<br>
+						<textarea class="format" readonly rows="10" cols="405" id="areaForQueryResults">
+
+							<table>
+								<tbody id = "tempDataBase">
+									<tr>
+									</tr>
+								</tbody>
+							</table>
+
+
+						</textarea>
+					</div> -->
+
+
+					<div class="modal-footer">
+							<!-- <button class="btn btn-secondary" type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">Close</button>
+							<button class="btn btn-primary" data-dismiss="modal" id="database">Add</button> -->
+					</div>
+					<!-- <button class="btn btn-secondary btn-lg gradient" id="StoreAllFiles">Store All Files</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Leave me at the bottom of body -->
+    <script src="/index.js"></script>
+</body>
+</html>
